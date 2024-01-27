@@ -9,11 +9,16 @@ Its implementation is similar to SimpleDb which created by Edward Sciore in its 
 
 - Functionally, it is a multiuser, transaction-oriented database server that executes SQL statements and interacts with clients via JDBC.
 - Structurally, it contains the same basic components as a commercial database management system, with similar APIs.
+- Extensive API documentation provided as a JavaDoc with some examples.
 
 
 ### Implementation Roadmap
 ****The project is still work in progress***
-- [ ] Disk and File Management
+- [x] Disk and File Management
+  - Added Page class.
+  - Added BlockId class.
+  - Added FileManager Class.
+  - Added initial configurations.
 - [ ] Memory Management
 - [ ] Transaction Management
 - [ ] Record Management
