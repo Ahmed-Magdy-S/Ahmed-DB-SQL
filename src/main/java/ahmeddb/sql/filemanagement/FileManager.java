@@ -82,12 +82,17 @@ public class FileManager {
         return INSTANCE;
     }
 
-    private RandomAccessFile getRandomAccessFile(String filename) throws FileNotFoundException {
+    private RandomAccessFile getRandomAccessFile(String filename) {
         //A random access file act as a stream to read from or write to a specific file.
         RandomAccessFile randomAccessFile = openFiles.get(filename);
         if (randomAccessFile == null){
             File dbFile = new File(databaseName,filename);
-            randomAccessFile = new RandomAccessFile(dbFile,"rws");
+            try {
+                randomAccessFile = new RandomAccessFile(dbFile,"rws");
+            }
+            catch (FileNotFoundException fileNotFoundException){
+                throw new RuntimeException("Cannot access db file",fileNotFoundException.getCause());
+            }
             openFiles.put(filename,randomAccessFile);
         }
         return randomAccessFile;
@@ -100,17 +105,20 @@ public class FileManager {
      * @param page the memory page (a byteBuffer in memory) that hold block contents
      * @return number of bytes read (loaded) into a memory page
      */
-    public synchronized int read(BlockId blockId, Page page) throws IOException {
+    public synchronized int read(BlockId blockId, Page page) {
         // get the required file to read from it.
         RandomAccessFile dbFile = getRandomAccessFile(blockId.fileName());
 
-        //move the pointer (cursor) to the given starting block position
-        dbFile.seek(blockId.number() * blockSize);
-
-        //transferring the reading of sequence of bytes of block into byteBuffer (memory allocated buffer)
-        int bytesRead = dbFile.getChannel().read(page.getByteBuffer());
-
-        return bytesRead;
+        try{
+            //move the pointer (cursor) to the given starting block position
+            dbFile.seek(blockId.number() * blockSize);
+            //transferring the reading of sequence of bytes of block into byteBuffer (memory allocated buffer)
+            int bytesRead = dbFile.getChannel().read(page.getByteBuffer());
+            return bytesRead;
+        }
+        catch (IOException ioException){
+            throw new RuntimeException("Cannot read from db file", ioException.getCause());
+        }
     }
 
     /**
@@ -119,17 +127,22 @@ public class FileManager {
      * @param page the memory page (a byteBuffer in memory) that hold block contents.
      * @return number of bytes written to a file.
      */
-    public synchronized int write(BlockId blockId, Page page) throws IOException {
+    public synchronized int write(BlockId blockId, Page page) {
         // get the required file to read from it.
         RandomAccessFile dbFile = getRandomAccessFile(blockId.fileName());
 
-        //move the pointer (cursor) to the given starting block position
-        dbFile.seek(blockId.number() * blockSize);
+        try{
+            //move the pointer (cursor) to the given starting block position
+            dbFile.seek(blockId.number() * blockSize);
 
-        //transferring and writing thr sequence of bytes of byteBuffer (page) to a db file.
-        int bytesWritten = dbFile.getChannel().write(page.getByteBuffer());
+            //transferring and writing thr sequence of bytes of byteBuffer (page) to a db file.
+            int bytesWritten = dbFile.getChannel().write(page.getByteBuffer());
 
-        return bytesWritten;
+            return bytesWritten;
+        }
+        catch (IOException ioException){
+            throw new RuntimeException("Cannot write to db file", ioException.getCause());
+        }
     }
 
 }
