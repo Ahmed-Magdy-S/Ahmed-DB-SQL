@@ -56,7 +56,8 @@ public class Page {
     /**
      * The constructor creates a page that gets its memory from an operating system I/O buffer.
      * this constructor is used by the buffer manager to deal with data of db files, such as reading from it,
-     * or writing to it.
+     * or writing to it.<br/>
+     * The memory allocated size of the byteBuffer will be got from the DB configuration.
      */
     public Page (){
         //blockSize is the size of file block to allocate a direct buffer in memory space for its size.
@@ -80,6 +81,9 @@ public class Page {
      * Absolute <i>get</i> method for reading an int value.
      * <p> Reads four bytes at the given index, composing them into a
      * int value according to the current byte order.</p>
+     *
+     * @apiNote The byteBuffer position won't be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
+     *
      * @param  index The index from which the bytes will be read
      * @return  The int value at the given index
      * @throws IndexOutOfBoundsException If {@code index} is negative or not smaller than the buffer's limit, minus three
@@ -95,6 +99,8 @@ public class Page {
      *
      * <p> Writes four bytes containing the given int value, in the
      * current byte order, into this buffer at the given index.  </p>
+     *
+     * @apiNote The byteBuffer position won't be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
      *
      * @param  index The index at which the bytes will be written
      * @param  value The int value to be written
@@ -113,6 +119,9 @@ public class Page {
      * it also has a constructor that converts the byte array back to a string. Thus, Page’s setString method calls
      * getBytes to convert the string to bytes and then writes those bytes as a blob.
      * For example, tne string stored in buffer like this: [Int, byte1,byte2, byte3], the string is composed of these bytes [byte1, byte2, byte3] and the Int in this case is 3
+     *
+     * @apiNote The byteBuffer position will be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
+     *
      * @param index The index at which the bytes will be written, but in this case,
      *              we put in it an integer number that represent the string bytes length (string bytes length),
      *              so we can convert back these bytes to real string value.
@@ -127,6 +136,9 @@ public class Page {
 
     /**
      * Reads a blob from the byte buffer and then converts the bytes to a string
+     *
+     * @apiNote The byteBuffer position will be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
+     *
      * @param index The index at which the bytes will be read, but in this case,
      *              we get from it an integer number that represent the string bytes length (string bytes length),
      *              so we can convert back these bytes to real string value by calculating the bytes length to convert them back.
@@ -144,6 +156,10 @@ public class Page {
     ByteBuffer getByteBuffer(){
         byteBuffer.position(0);
         return byteBuffer;
+    }
+
+    int getStringBytesLength(String value){
+        return value.getBytes(CHARSET).length;
     }
 
 
