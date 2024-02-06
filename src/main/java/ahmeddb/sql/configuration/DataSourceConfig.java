@@ -17,7 +17,16 @@ public abstract class DataSourceConfig {
      * It's the only variable that can be changed in this configuration.
      */
     private String databaseName;
+
+    /**
+     * The character set of db, it will be set once during application lifecycle.
+     */
     private DbCharSet dbCharSet;
+
+    /**
+     * The name of the db log file, currently it's a single file, more files maybe considered in the future.
+     */
+    private String logFileName;
 
     /**
      * Once size is set for a first time, it cannot be changer in the future, even if you call this method again.
@@ -38,11 +47,20 @@ public abstract class DataSourceConfig {
 
     }
 
+    /**
+     * Setting database name.
+     * @param databaseName the database name.
+     */
     public void setDatabaseName(String databaseName){
         this.databaseName = databaseName;
     }
 
+    /**
+     * Getting the database name.
+     * @return database name.
+     */
     public String getDatabaseName(){
+        if (databaseName == null) throw new IllegalStateException("Database name is not set.");
         return this.databaseName;
     }
 
@@ -64,4 +82,20 @@ public abstract class DataSourceConfig {
         return dbCharSet.getCharset();
     }
 
+    /**
+     * Getting the name of the database log file name.
+     * @return name of database log file.
+     */
+    public String getLogFileName() {
+        if (logFileName == null) throw new IllegalStateException("The Name of the database log file is not set.");
+        return logFileName;
+    }
+
+    /**
+     * Setting name of database log file.
+     * @param logFileName name of database log file.
+     */
+    public void setLogFileName(String logFileName) {
+        this.logFileName = logFileName;
+    }
 }
