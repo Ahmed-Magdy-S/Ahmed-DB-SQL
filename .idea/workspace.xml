@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb14125-b7a6-4510-8819-1d6e5a234193" name="Changes" comment="init project">
+    <list default="true" id="ecb14125-b7a6-4510-8819-1d6e5a234193" name="Changes" comment="add tests for Page class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/configuration/DataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/configuration/DataSourceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/Page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ahmeddb/sql/filemanagement/PageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ahmeddb/sql/filemanagement/PageTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +21,7 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -42,6 +47,10 @@
     &quot;Application.AhmedDbSqlApplication.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.AhmedDBApplicationTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.AhmedDbSqlApplicationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PageTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PageTest.getByteBuffer.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PageTest.getInt.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PageTest.setString.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
@@ -65,23 +74,11 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="ahmeddb.sql.filemanagement" />
       <recent name="ahmeddb" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AhmedDbSqlApplicationTest">
-    <configuration name="AhmedDbSqlApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ahmeddbsql.AhmedDbSqlApplication" />
-      <module name="ahmeddb-sql" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ahmeddbsql.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.PageTest.getByteBuffer">
     <configuration name="AhmedDbSqlApplicationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ahmeddb-sql" />
       <extension name="coverage">
@@ -97,10 +94,76 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PageTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ahmeddb-sql" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ahmeddb.sql.filemanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ahmeddb.sql.filemanagement" />
+      <option name="MAIN_CLASS_NAME" value="ahmeddb.sql.filemanagement.PageTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PageTest.getByteBuffer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ahmeddb-sql" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ahmeddb.sql.filemanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ahmeddb.sql.filemanagement" />
+      <option name="MAIN_CLASS_NAME" value="ahmeddb.sql.filemanagement.PageTest" />
+      <option name="METHOD_NAME" value="getByteBuffer" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PageTest.getInt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ahmeddb-sql" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ahmeddb.sql.filemanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ahmeddb.sql.filemanagement" />
+      <option name="MAIN_CLASS_NAME" value="ahmeddb.sql.filemanagement.PageTest" />
+      <option name="METHOD_NAME" value="getInt" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PageTest.setString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ahmeddb-sql" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ahmeddb.sql.filemanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ahmeddb.sql.filemanagement" />
+      <option name="MAIN_CLASS_NAME" value="ahmeddb.sql.filemanagement.PageTest" />
+      <option name="METHOD_NAME" value="setString" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PageTest.getByteBuffer" />
+        <item itemvalue="JUnit.PageTest.setString" />
+        <item itemvalue="JUnit.PageTest" />
+        <item itemvalue="JUnit.PageTest.getInt" />
         <item itemvalue="JUnit.AhmedDbSqlApplicationTest" />
-        <item itemvalue="Application.AhmedDbSqlApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -115,7 +178,10 @@
       <workItem from="1705952491776" duration="2943000" />
       <workItem from="1705956340452" duration="3658000" />
       <workItem from="1706180521285" duration="17651000" />
-      <workItem from="1706351427597" duration="22999000" />
+      <workItem from="1706351427597" duration="25176000" />
+      <workItem from="1706533381183" duration="5344000" />
+      <workItem from="1707076647076" duration="1777000" />
+      <workItem from="1707210171615" duration="9784000" />
     </task>
     <task id="LOCAL؜-٠٠٠٠١" summary="init project">
       <option name="closed" value="true" />
@@ -125,7 +191,55 @@
       <option name="project" value="LOCAL؜" />
       <updated>1705957420763</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL؜-٠٠٠٠٢" summary="add file management module with configurations">
+      <option name="closed" value="true" />
+      <created>1706390655818</created>
+      <option name="number" value="٠٠٠٠٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1706390655818</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٠٣" summary="update README.md">
+      <option name="closed" value="true" />
+      <created>1706391032978</created>
+      <option name="number" value="٠٠٠٠٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1706391032978</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٠٤" summary="handling io exceptions.">
+      <option name="closed" value="true" />
+      <created>1706391731360</created>
+      <option name="number" value="٠٠٠٠٤" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٤" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1706391731360</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٠٥" summary="update readme">
+      <option name="closed" value="true" />
+      <created>1706392173317</created>
+      <option name="number" value="٠٠٠٠٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1706392173317</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٠٦" summary="add more docs">
+      <option name="closed" value="true" />
+      <created>1706541444580</created>
+      <option name="number" value="٠٠٠٠٦" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٦" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1706541444580</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٠٧" summary="add tests for Page class">
+      <option name="closed" value="true" />
+      <created>1706541492047</created>
+      <option name="number" value="٠٠٠٠٧" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٧" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1706541492047</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +247,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init project" />
-    <option name="LAST_COMMIT_MESSAGE" value="init project" />
+    <MESSAGE value="add file management module with configurations" />
+    <MESSAGE value="update README.md" />
+    <MESSAGE value="handling io exceptions." />
+    <MESSAGE value="update readme" />
+    <MESSAGE value="add more docs" />
+    <MESSAGE value="add tests for Page class" />
+    <option name="LAST_COMMIT_MESSAGE" value="add tests for Page class" />
   </component>
 </project>

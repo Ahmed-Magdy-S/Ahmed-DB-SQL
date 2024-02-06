@@ -1,6 +1,5 @@
 package ahmeddb.sql.filemanagement;
 
-import ahmeddb.sql.configuration.BlockSize;
 import ahmeddb.sql.configuration.DataSourceConfigProvider;
 
 import java.nio.ByteBuffer;
@@ -35,7 +34,7 @@ public class Page {
 
     /**
      * <p>
-     * Each page is implemented using a ByteBuffer object.
+     * Each page is implemented using a ByteBuffer object that considered as a page contents.
      * A ByteBuffer object wraps a byte array with methods to read and write values at arbitrary locations of the array.
      * These values can be primitive values (such as integers) as well as smaller byte arrays.
      * For example, Page’s setInt method saves an integer in the page by calling the ByteBuffer’s putInt method.
@@ -71,6 +70,8 @@ public class Page {
      * unlike the first constructor who cares about the blockSize,
      * because we use that first constructor for writing or reading our real data from db files.
      * this constructor cares only about dealing with log files.
+     * As far as the log manager is concerned, a log record is an arbitrarily sized byte array;
+     * it saves the array in the log file but has no idea what its contents denote
      */
     public Page(byte[] bytes){
         this.byteBuffer = ByteBuffer.wrap(bytes);
@@ -153,7 +154,12 @@ public class Page {
         return new String(stringBytes,CHARSET);
     }
 
-    ByteBuffer getByteBuffer(){
+    /**
+     * Get page's content, the content is represented as a sequence of bytes stored in byteBuffer object that
+     * acts as array of bytes.
+     * @return page's byteBuffer object.
+     */
+    ByteBuffer contents(){
         byteBuffer.position(0);
         return byteBuffer;
     }

@@ -30,14 +30,14 @@ public class FileManager {
     private static FileManager INSTANCE;
 
     /**
-     * A logical block size inside the file (any db file has many blocks thar have the same sizes).
+     * A logical block size inside the file (any db file has many blocks that all have the same sizes).
      */
-    private final int blockSize = DataSourceConfigProvider.getDataSourceConfig().getBlockSize();
+    private static final int blockSize = DataSourceConfigProvider.getDataSourceConfig().getBlockSize();
 
     /**
-     * The name of database directory which store all database related data files.
+     * The name of database is also the name of the directory which store all database related data files.
      */
-    private final String databaseName = DataSourceConfigProvider.getDataSourceConfig().getDatabaseName();
+    private static final String databaseName = DataSourceConfigProvider.getDataSourceConfig().getDatabaseName();
 
     /**
      * Each RandomAccessFile object in the map openFiles corresponds to an open file.
@@ -55,14 +55,13 @@ public class FileManager {
      * If no such folder exists, then a folder is created for a new database
      */
     private FileManager(){
-        createDatabaseDirectory(databaseName);
+        createDatabaseDirectory();
     }
 
     /**
      * Create a database directory if it's not exist
-     * @param databaseName Name of database is also the name of database directory
      */
-    private void createDatabaseDirectory(String databaseName) {
+    private void createDatabaseDirectory() {
         Path directoryPath = Path.of(databaseName);
         try {
             if (Files.notExists(directoryPath)) Files.createDirectories(directoryPath);
@@ -82,7 +81,13 @@ public class FileManager {
         return INSTANCE;
     }
 
-    private RandomAccessFile getRandomAccessFile(String filename) {
+    /**
+     *
+     * @param filename the name of a db file that will be accessed to do operations on it, if the file not exist,
+     *                 it will be created then get access to it.
+     * @return the random access file of a db file to do operation on it.
+     */
+    public RandomAccessFile getRandomAccessFile(String filename) {
         //A random access file act as a stream to read from or write to a specific file.
         RandomAccessFile randomAccessFile = openFiles.get(filename);
         if (randomAccessFile == null){
@@ -91,7 +96,7 @@ public class FileManager {
                 randomAccessFile = new RandomAccessFile(dbFile,"rws");
             }
             catch (FileNotFoundException fileNotFoundException){
-                throw new RuntimeException("Cannot access db file",fileNotFoundException.getCause());
+                throw new RuntimeException("Cannot access db file", fileNotFoundException.getCause());
             }
             openFiles.put(filename,randomAccessFile);
         }
@@ -113,8 +118,8 @@ public class FileManager {
             //move the pointer (cursor) to the given starting block position
             dbFile.seek(blockId.number() * blockSize);
             //transferring the reading of sequence of bytes of block into byteBuffer (memory allocated buffer)
-            int bytesRead = dbFile.getChannel().read(page.getByteBuffer());
-            return bytesRead;
+            //using getChannel() allows us to deal with byteBuffer
+            return dbFile.getChannel().read(page.contents());
         }
         catch (IOException ioException){
             throw new RuntimeException("Cannot read from db file", ioException.getCause());
@@ -136,9 +141,8 @@ public class FileManager {
             dbFile.seek(blockId.number() * blockSize);
 
             //transferring and writing thr sequence of bytes of byteBuffer (page) to a db file.
-            int bytesWritten = dbFile.getChannel().write(page.getByteBuffer());
-
-            return bytesWritten;
+            //using getChannel() allows us to deal with byteBuffer
+            return dbFile.getChannel().write(page.contents());
         }
         catch (IOException ioException){
             throw new RuntimeException("Cannot write to db file", ioException.getCause());

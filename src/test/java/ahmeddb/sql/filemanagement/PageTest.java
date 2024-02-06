@@ -92,15 +92,15 @@ class PageTest {
         int dbBlockSize = DataSourceConfigProvider.getDataSourceConfig().getBlockSize();
 
         //act
-        int pageBlockSize = page.getByteBuffer().capacity();
+        int pageBlockSize = page.contents().capacity();
 
         //assert
         assertEquals(dbBlockSize, pageBlockSize);
-        assertTrue(page.getByteBuffer().isDirect());
-        assertFalse(page2.getByteBuffer().isDirect());
+        assertTrue(page.contents().isDirect());
+        assertFalse(page2.contents().isDirect());
         assertNotEquals(page,page2);
-        assertFalse(page.getByteBuffer().isReadOnly());
-        assertFalse(page2.getByteBuffer().isReadOnly());
+        assertFalse(page.contents().isReadOnly());
+        assertFalse(page2.contents().isReadOnly());
 
     }
 }
