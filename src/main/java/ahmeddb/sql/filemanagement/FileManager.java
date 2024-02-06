@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -117,9 +118,14 @@ public class FileManager {
         try{
             //move the pointer (cursor) to the given starting block position
             dbFile.seek(blockId.number() * blockSize);
+
+            //get the channel of a db file,
+            //so that we can deal with byteBuffer to read bytes from the db file by
+            //transferring bytes from the db file through this channel to be loaded into byteBuffer (memory allocated buffer).
+            FileChannel fileChannel = dbFile.getChannel();
+
             //transferring the reading of sequence of bytes of block into byteBuffer (memory allocated buffer)
-            //using getChannel() allows us to deal with byteBuffer
-            return dbFile.getChannel().read(page.contents());
+            return fileChannel.read(page.contents());
         }
         catch (IOException ioException){
             throw new RuntimeException("Cannot read from db file", ioException.getCause());
@@ -140,9 +146,12 @@ public class FileManager {
             //move the pointer (cursor) to the given starting block position
             dbFile.seek(blockId.number() * blockSize);
 
-            //transferring and writing thr sequence of bytes of byteBuffer (page) to a db file.
-            //using getChannel() allows us to deal with byteBuffer
-            return dbFile.getChannel().write(page.contents());
+            //get the channel of a db file
+            //so that we can transfer bytes from byteBuffer through this channel to be written in the db file.
+            FileChannel fileChannel = dbFile.getChannel();
+
+            //transferring and writing sequence of bytes of byteBuffer (page) to a db file.
+            return fileChannel.write(page.contents());
         }
         catch (IOException ioException){
             throw new RuntimeException("Cannot write to db file", ioException.getCause());

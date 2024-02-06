@@ -34,7 +34,7 @@ public class Page {
 
     /**
      * <p>
-     * Each page is implemented using a ByteBuffer object that considered as a page contents.
+     * Each page is implemented using a ByteBuffer object that considered as (or hold) a page contents.
      * A ByteBuffer object wraps a byte array with methods to read and write values at arbitrary locations of the array.
      * These values can be primitive values (such as integers) as well as smaller byte arrays.
      * For example, Page’s setInt method saves an integer in the page by calling the ByteBuffer’s putInt method.
