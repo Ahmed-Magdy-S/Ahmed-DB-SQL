@@ -15,7 +15,21 @@ import java.nio.charset.Charset;
  * The page is responsible for dealing with memory, (i.e: acts as if it's a memory page).
  * so to read some data from file, we need to load it in a page object first.
  * Then, any modification of that data at the page object can be written to the file.
- * The read and write operations are used by {@link FileManager}.
+ * The read and write operations are used by {@link FileManager}.<br/>
+ *
+ * <h2> Direct <i>vs.</i> non-direct buffers </h2>
+ * <p><strong>Direct ByteBuffer</strong>: When you allocate a direct ByteBuffer, memory is allocated outside of the JVM's heap space.
+ * This memory is typically allocated by the operating system and is managed by the JVM through native code.
+ * Direct ByteBuffer objects are often preferred for I/O operations as they can be more efficient for tasks like reading
+ * from or writing to files, sockets, and other I/O channels.</p>
+ *
+ * <p><strong>Indirect ByteBuffer:</strong> In contrast, when you allocate an indirect ByteBuffer, memory is allocated within
+ * the JVM's heap space like any other object. These are the traditional ByteBuffer objects allocated
+ * via ByteBuffer.allocate(). Indirect buffers have the benefit of being easier to work with and can be more
+ * flexible in terms of resizing and garbage collection, but they may incur additional overhead when performing
+ * I/O operations due to the need for copying data between the buffer and native I/O buffers.</p>
+ * <br/>
+ * Direct ByteBuffer objects are often used in scenarios where performance is critical, especially for large data transfers, as they can offer better performance by avoiding unnecessary data copying between JVM and native memory. However, they come with some considerations, such as potentially higher memory overhead and limitations on direct memory allocation imposed by the operating system.
  *
  * @see <a href="https://www.baeldung.com/java-bytebuffer">Baeldung: Java-bytebuffer</a>
  * and <a href="https://stackoverflow.com/questions/5670862/bytebuffer-allocate-vs-bytebuffer-allocatedirect">Stackoverflow: bytebuffer-allocate-vs-bytebuffer-allocatedirect</a>
@@ -167,7 +181,5 @@ public class Page {
     int getStringBytesLength(String value){
         return value.getBytes(CHARSET).length;
     }
-
-
 
 }
