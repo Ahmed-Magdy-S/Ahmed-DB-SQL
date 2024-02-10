@@ -1,6 +1,7 @@
 package ahmeddb.sql.filemanagement;
 
 import ahmeddb.sql.configuration.DataSourceConfigProvider;
+import ahmeddb.sql.logmanagement.LogRecord;
 
 import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
@@ -85,7 +86,10 @@ public class Page {
      * because we use that first constructor for writing or reading our real data from db files.
      * this constructor cares only about dealing with log files.
      * As far as the log manager is concerned, a log record is an arbitrarily sized byte array;
-     * it saves the array in the log file but has no idea what its contents denote
+     * it saves the array in the log file but has no idea what its contents denotes.
+     * Each block in the log file may contain more than 1 log record as the Log records can have varying sizes.
+     * Each log page will have its size for a specific record bytes only, NO record will have equal amount of bytes to
+     * another record, it depends on the record data.
      */
     public Page(byte[] bytes){
         this.byteBuffer = ByteBuffer.wrap(bytes);
@@ -168,18 +172,30 @@ public class Page {
         return new String(stringBytes,CHARSET);
     }
 
+    public void setBytes(int index , byte[] bytes){
+        byteBuffer.put(index,bytes);
+    }
+
+
     /**
      * Get page's content, the content is represented as a sequence of bytes stored in byteBuffer object that
      * acts as array of bytes.
      * @return page's byteBuffer object.
      */
-    ByteBuffer contents(){
+    public ByteBuffer contents(){
         byteBuffer.position(0);
         return byteBuffer;
     }
 
-    int getStringBytesLength(String value){
+    public int getStringBytesLength(String value){
         return value.getBytes(CHARSET).length;
+    }
+
+    /**
+     * Clearing page's contents
+     */
+    public ByteBuffer clear(){
+        return byteBuffer.clear();
     }
 
 }

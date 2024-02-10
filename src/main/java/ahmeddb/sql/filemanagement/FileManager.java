@@ -46,7 +46,10 @@ public class FileManager {
      * The “s” portion specifies that the operating system should not delay disk I/O in order to optimize disk performance;
      * instead, every write operation must be written immediately to the disk.
      * This feature ensures that the database engine knows exactly when disk writes occur, which will be especially important
-     * for implementing the data recovery algorithms
+     * for implementing the data recovery algorithms.
+     * We keep random access file streams open without closing, as we do operations with the db files all the time,
+     * and the cost of opening/closing streams will affect on the performance because of that overhead.
+     * so it can be more efficient to keep the streams open.
      */
     private final Map<String, RandomAccessFile> openFiles = new HashMap<>();
 
@@ -60,7 +63,7 @@ public class FileManager {
     }
 
     /**
-     * Create a database directory if it's not exist
+     * Create a database directory if it's not exist.
      */
     private void createDatabaseDirectory() {
         Path directoryPath = Path.of(databaseName);
@@ -83,6 +86,22 @@ public class FileManager {
     }
 
     /**
+     * <h2>File Constructor</h2>
+     * <p>The `File` constructor in Java is simply a means to create a representation of a file path or directory path.
+     * It's designed to provide information about files and directories in the file system.
+     * The decision not to create a file automatically when you create a `File` object is likely due to separation of
+     * concerns and to avoid side effects. Consider that creating a file is potentially an I/O operation that can fail
+     * due to various reasons such as permissions, disk space, or file system errors.
+     * If the `File` constructor automatically created files, it could lead to unexpected behavior and
+     * potential errors that are hard to manage or debug.
+     * Therefore, Java developers have to explicitly invoke methods like `createNewFile()` or
+     * use appropriate file handling classes like `RandomAccessFile`, `FileOutputStream`, or `Files` from
+     * the Java NIO package to create files, giving them more control over when and how file creation occurs.
+     * This design choice aligns with the principle of explicitness and helps in writing more predictable and robust code.</p>
+     * <h2>RandomAccessFile Constructor</h2>
+     * <p>We use RandomAccessFile to act as a stream to read from or write to a specific file.
+     * if the created file object (dbFile) points to a file that doesn't exist, RandomAccessFile will create it.
+     * If it does exist, RandomAccessFile will just open it for reading and writing, without overwriting its contents.</p>
      *
      * @param filename the name of a db file that will be accessed to do operations on it, if the file not exist,
      *                 it will be created then get access to it.
@@ -92,12 +111,13 @@ public class FileManager {
         //A random access file act as a stream to read from or write to a specific file.
         RandomAccessFile randomAccessFile = openFiles.get(filename);
         if (randomAccessFile == null){
+            //The created file object is just a reference, not a real (physical) file.
             File dbFile = new File(databaseName,filename);
             try {
                 randomAccessFile = new RandomAccessFile(dbFile,"rws");
             }
             catch (FileNotFoundException fileNotFoundException){
-                throw new RuntimeException("Cannot access db file", fileNotFoundException.getCause());
+                throw new RuntimeException("Cannot access db file: " + filename, fileNotFoundException.getCause());
             }
             openFiles.put(filename,randomAccessFile);
         }
@@ -128,7 +148,7 @@ public class FileManager {
             return fileChannel.read(page.contents());
         }
         catch (IOException ioException){
-            throw new RuntimeException("Cannot read from db file", ioException.getCause());
+            throw new RuntimeException("Cannot read from db file: " + blockId.fileName(), ioException.getCause());
         }
     }
 
@@ -154,7 +174,7 @@ public class FileManager {
             return fileChannel.write(page.contents());
         }
         catch (IOException ioException){
-            throw new RuntimeException("Cannot write to db file", ioException.getCause());
+            throw new RuntimeException("Cannot write to db file: " + blockId.fileName(), ioException.getCause());
         }
     }
 

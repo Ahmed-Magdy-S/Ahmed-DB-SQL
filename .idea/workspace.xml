@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb14125-b7a6-4510-8819-1d6e5a234193" name="Changes" comment="add tests for Page class">
+    <list default="true" id="ecb14125-b7a6-4510-8819-1d6e5a234193" name="Changes" comment="improve docs.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/configuration/DataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/configuration/DataSourceConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/FileManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/Page.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ahmeddb/sql/filemanagement/PageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ahmeddb/sql/filemanagement/PageTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +71,10 @@
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ahmed\Desktop\Programming\projects\ahmed-db-sql\src\main\resources\docs" />
+      <recent name="C:\Users\Ahmed\Desktop\Programming\projects\ahmed-db-sql\src\main\resources\diagrams" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ahmeddb.sql.filemanagement" />
@@ -181,7 +184,13 @@
       <workItem from="1706351427597" duration="25176000" />
       <workItem from="1706533381183" duration="5344000" />
       <workItem from="1707076647076" duration="1777000" />
-      <workItem from="1707210171615" duration="9784000" />
+      <workItem from="1707210171615" duration="13248000" />
+      <workItem from="1707290389543" duration="1552000" />
+      <workItem from="1707338368272" duration="1679000" />
+      <workItem from="1707353089389" duration="607000" />
+      <workItem from="1707389880494" duration="3896000" />
+      <workItem from="1707453973355" duration="6058000" />
+      <workItem from="1707564401812" duration="14285000" />
     </task>
     <task id="LOCAL؜-٠٠٠٠١" summary="init project">
       <option name="closed" value="true" />
@@ -239,7 +248,39 @@
       <option name="project" value="LOCAL؜" />
       <updated>1706541492047</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL؜-٠٠٠٠٨" summary="add some enhancements">
+      <option name="closed" value="true" />
+      <created>1707256453453</created>
+      <option name="number" value="٠٠٠٠٨" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٨" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1707256453453</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٠٩" summary="add more configuration &amp; enhance code">
+      <option name="closed" value="true" />
+      <created>1707256544201</created>
+      <option name="number" value="٠٠٠٠٩" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٩" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1707256544201</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٠" summary="improve docs.">
+      <option name="closed" value="true" />
+      <created>1707259322853</created>
+      <option name="number" value="٠٠٠١٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1707259322853</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١١" summary="improve docs.">
+      <option name="closed" value="true" />
+      <created>1707260017239</created>
+      <option name="number" value="٠٠٠١١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1707260017239</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,6 +294,9 @@
     <MESSAGE value="update readme" />
     <MESSAGE value="add more docs" />
     <MESSAGE value="add tests for Page class" />
-    <option name="LAST_COMMIT_MESSAGE" value="add tests for Page class" />
+    <MESSAGE value="add some enhancements" />
+    <MESSAGE value="add more configuration &amp; enhance code" />
+    <MESSAGE value="improve docs." />
+    <option name="LAST_COMMIT_MESSAGE" value="improve docs." />
   </component>
 </project>
