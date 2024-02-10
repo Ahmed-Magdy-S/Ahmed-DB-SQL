@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb14125-b7a6-4510-8819-1d6e5a234193" name="Changes" comment="improve docs.">
+    <list default="true" id="ecb14125-b7a6-4510-8819-1d6e5a234193" name="Changes" comment="add log workflow diagrams">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/configuration/DataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/configuration/DataSourceConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/Page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,34 +38,35 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AhmedDBApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.AhmedDbSqlApplication.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AhmedDBApplicationTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AhmedDbSqlApplicationTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PageTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PageTest.getByteBuffer.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PageTest.getInt.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PageTest.setString.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ahmed/Desktop/Programming/SimpleDB_3.4&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AhmedDBApplication.executor": "Run",
+    "Application.AhmedDbSqlApplication.executor": "Run",
+    "JUnit.AhmedDBApplicationTest.executor": "Run",
+    "JUnit.AhmedDbSqlApplicationTest.executor": "Run",
+    "JUnit.PageTest.executor": "Run",
+    "JUnit.PageTest.getByteBuffer.executor": "Run",
+    "JUnit.PageTest.getInt.executor": "Run",
+    "JUnit.PageTest.setString.executor": "Run",
+    "Maven.ahmeddb-sql [test].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Ahmed/Desktop/Programming/SimpleDB_3.4",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -190,7 +189,7 @@
       <workItem from="1707353089389" duration="607000" />
       <workItem from="1707389880494" duration="3896000" />
       <workItem from="1707453973355" duration="6058000" />
-      <workItem from="1707564401812" duration="14285000" />
+      <workItem from="1707564401812" duration="15839000" />
     </task>
     <task id="LOCAL؜-٠٠٠٠١" summary="init project">
       <option name="closed" value="true" />
@@ -280,7 +279,31 @@
       <option name="project" value="LOCAL؜" />
       <updated>1707260017239</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL؜-٠٠٠١٢" summary="code improvements">
+      <option name="closed" value="true" />
+      <created>1707605660263</created>
+      <option name="number" value="٠٠٠١٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1707605660263</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٣" summary="add initial logmanagement features">
+      <option name="closed" value="true" />
+      <created>1707605742405</created>
+      <option name="number" value="٠٠٠١٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1707605742405</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٤" summary="add log workflow diagrams">
+      <option name="closed" value="true" />
+      <created>1707605774915</created>
+      <option name="number" value="٠٠٠١٤" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٤" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1707605774915</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,6 +320,9 @@
     <MESSAGE value="add some enhancements" />
     <MESSAGE value="add more configuration &amp; enhance code" />
     <MESSAGE value="improve docs." />
-    <option name="LAST_COMMIT_MESSAGE" value="improve docs." />
+    <MESSAGE value="code improvements" />
+    <MESSAGE value="add initial logmanagement features" />
+    <MESSAGE value="add log workflow diagrams" />
+    <option name="LAST_COMMIT_MESSAGE" value="add log workflow diagrams" />
   </component>
 </project>
