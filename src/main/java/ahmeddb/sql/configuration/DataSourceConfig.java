@@ -24,9 +24,14 @@ public abstract class DataSourceConfig {
     private DbCharSet dbCharSet;
 
     /**
+     * The Log directory name for the database.
+     */
+    private final String logDirectoryName = "log";
+
+    /**
      * The name of the db log file, currently it's a single file, more files maybe considered in the future.
      */
-    private String logFileName;
+    private final String logFileName = "db_log";
 
     /**
      * Once size is set for a first time, it cannot be changer in the future, even if you call this method again.
@@ -87,15 +92,11 @@ public abstract class DataSourceConfig {
      * @return name of database log file.
      */
     public String getLogFileName() {
-        if (logFileName == null) throw new IllegalStateException("The Name of the database log file is not set.");
         return logFileName;
     }
 
-    /**
-     * Setting name of database log file.
-     * @param logFileName name of database log file.
-     */
-    public void setLogFileName(String logFileName) {
-        this.logFileName = logFileName;
+    public String getLogDirectoryName() {
+        return logDirectoryName;
     }
+
 }
