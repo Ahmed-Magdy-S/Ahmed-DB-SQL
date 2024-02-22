@@ -72,7 +72,7 @@ public class Page {
      * or writing to it.<br/>
      * The memory allocated size of the byteBuffer will be got from the DB configuration.
      */
-    public Page (){
+    public Page() {
         //blockSize is the size of file block to allocate a direct buffer in memory space for its size.
         this.byteBuffer = ByteBuffer.allocateDirect(DataSourceConfigProvider.getDataSourceConfig().getBlockSize());
     }
@@ -90,7 +90,7 @@ public class Page {
      * Each log page will have its size for a specific record bytes only, NO record will have equal amount of bytes to
      * another record, it depends on the record data.
      */
-    public Page(byte[] bytes){
+    public Page(byte[] bytes) {
         this.byteBuffer = ByteBuffer.wrap(bytes);
     }
 
@@ -100,15 +100,14 @@ public class Page {
      * <p> Reads four bytes at the given index, composing them into a
      * int value according to the current byte order.</p>
      *
-     * @apiNote The byteBuffer position won't be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
-     *
-     * @param  index The index from which the bytes will be read
-     * @return  The int value at the given index
+     * @param index The index from which the bytes will be read
+     * @return The int value at the given index
      * @throws IndexOutOfBoundsException If {@code index} is negative or not smaller than the buffer's limit, minus three
-     * @throws ReadOnlyBufferException If this buffer is read-only
+     * @throws ReadOnlyBufferException   If this buffer is read-only
+     * @apiNote The byteBuffer position won't be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
      */
-    public int getInt(int index){
-       return byteBuffer.getInt(index);
+    public int getInt(int index) {
+        return byteBuffer.getInt(index);
     }
 
     /**
@@ -118,15 +117,14 @@ public class Page {
      * <p> Writes four bytes containing the given int value, in the
      * current byte order, into this buffer at the given index.  </p>
      *
+     * @param index The index at which the bytes will be written
+     * @param value The int value to be written
+     *              *
+     * @throws IndexOutOfBoundsException If {@code index} is negative or not smaller than the buffer's limit, minus three
+     * @throws ReadOnlyBufferException   If this buffer is read-only
      * @apiNote The byteBuffer position won't be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
-     *
-     * @param  index The index at which the bytes will be written
-     * @param  value The int value to be written
-     **
-     * @throws  IndexOutOfBoundsException If {@code index} is negative or not smaller than the buffer's limit, minus three
-     * @throws  ReadOnlyBufferException If this buffer is read-only
      */
-    public void setInt(int index, int value){
+    public void setInt(int index, int value) {
         byteBuffer.putInt(index, value);
     }
 
@@ -138,14 +136,13 @@ public class Page {
      * getBytes to convert the string to bytes and then writes those bytes as a blob.
      * For example, tne string stored in buffer like this: [Int, byte1,byte2, byte3], the string is composed of these bytes [byte1, byte2, byte3] and the Int in this case is 3
      *
-     * @apiNote The byteBuffer position will be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
-     *
      * @param index The index at which the bytes will be written, but in this case,
      *              we put in it an integer number that represent the string bytes length (string bytes length),
      *              so we can convert back these bytes to real string value.
      * @param value the string that will be stored in byteBuffer object.
+     * @apiNote The byteBuffer position will be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
      */
-    public void setString(int index, String value){
+    public void setString(int index, String value) {
         byte[] stringBytes = value.getBytes(CHARSET);
         byteBuffer.position(index);
         byteBuffer.putInt(stringBytes.length);
@@ -155,20 +152,19 @@ public class Page {
     /**
      * Reads a blob from the byte buffer and then converts the bytes to a string
      *
-     * @apiNote The byteBuffer position will be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
-     *
      * @param index The index at which the bytes will be read, but in this case,
      *              we get from it an integer number that represent the string bytes length (string bytes length),
      *              so we can convert back these bytes to real string value by calculating the bytes length to convert them back.
      * @return String (real text)
+     * @apiNote The byteBuffer position will be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
      */
-    public String getString(int index){
+    public String getString(int index) {
         byteBuffer.position(index);
         int strLength = byteBuffer.getInt();
         byte[] stringBytes = new byte[strLength];
         byteBuffer.get(stringBytes, 0, stringBytes.length);
 
-        return new String(stringBytes,CHARSET);
+        return new String(stringBytes, CHARSET);
     }
 
     /**
@@ -178,19 +174,20 @@ public class Page {
      * @param index the index at which we start inserting bytes.
      * @param bytes the actual data that will be stored.
      */
-    public ByteBuffer setBytes(int index , byte[] bytes){
-        return byteBuffer.put(index,bytes);
+    public ByteBuffer setBytes(int index, byte[] bytes) {
+        return byteBuffer.position(index).putInt(bytes.length).put(bytes, 0, bytes.length);
     }
 
     /**
      * Get bytes from a specific location by index
+     *
      * @param index the index at which the bytes length is stored as an integer.
      * @return the bytes that has an equal length to the integer that obtained from the index position.
      */
-    public byte[] getBytes(int index){
+    public byte[] getBytes(int index) {
         int bytesLength = byteBuffer.getInt(index);
         byte[] bytes = new byte[bytesLength];
-        byteBuffer.get(bytesLength,bytes);
+        byteBuffer.get(bytesLength, bytes);
         return bytes;
     }
 
@@ -198,21 +195,22 @@ public class Page {
     /**
      * Get page's content, the content is represented as a sequence of bytes stored in byteBuffer object that
      * acts as array of bytes.
+     *
      * @return page's byteBuffer object.
      */
-    public ByteBuffer contents(){
+    public ByteBuffer contents() {
         byteBuffer.position(0);
         return byteBuffer;
     }
 
-    public int getStringBytesLength(String value){
+    public int getStringBytesLength(String value) {
         return value.getBytes(CHARSET).length;
     }
 
     /**
      * Clearing page's contents
      */
-    public ByteBuffer clear(){
+    public ByteBuffer clear() {
         return byteBuffer.clear();
     }
 
