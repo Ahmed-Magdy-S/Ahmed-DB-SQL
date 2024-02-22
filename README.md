@@ -34,10 +34,14 @@ The project for learning purpose to get conceptual knowledge and experience abou
 
 ## Known problems
 - There are holes in db files (e.g: table files, log files, etc...). The holes are exist due to some records don't fit into the remaining of the file block space, so a new block is created every time, leaving the previous block in non-full state.
-
+- A way to handle big records that exceed the buffer capacity (page size).
 
 ## Need to be proved
 - Log manager uses indirect buffer for its memory page, I don't know if this is a good option or not when comparing it to the direct buffer
+
+## Future Ideas to be considered 
+- Caching mechanism like redis
+- search engine with features like: "Auto-complete, spell-checking, full text-search, geoloaction, etc..."
 
 ## Setup
 It will be available after finishing of the project.
