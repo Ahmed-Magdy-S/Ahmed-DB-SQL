@@ -1,7 +1,6 @@
 package ahmeddb.sql.filemanagement;
 
 import ahmeddb.sql.configuration.DataSourceConfigProvider;
-import ahmeddb.sql.logmanagement.LogRecord;
 
 import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
@@ -172,8 +171,27 @@ public class Page {
         return new String(stringBytes,CHARSET);
     }
 
-    public void setBytes(int index , byte[] bytes){
-        byteBuffer.put(index,bytes);
+    /**
+     * add random bytes to the buffer, the first bytes before inserting the actual bytes will be an integer that represents the
+     * bytes length in byteBuffer object.
+     *
+     * @param index the index at which we start inserting bytes.
+     * @param bytes the actual data that will be stored.
+     */
+    public ByteBuffer setBytes(int index , byte[] bytes){
+        return byteBuffer.put(index,bytes);
+    }
+
+    /**
+     * Get bytes from a specific location by index
+     * @param index the index at which the bytes length is stored as an integer.
+     * @return the bytes that has an equal length to the integer that obtained from the index position.
+     */
+    public byte[] getBytes(int index){
+        int bytesLength = byteBuffer.getInt(index);
+        byte[] bytes = new byte[bytesLength];
+        byteBuffer.get(bytesLength,bytes);
+        return bytes;
     }
 
 
