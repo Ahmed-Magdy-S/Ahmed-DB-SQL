@@ -8,9 +8,9 @@ The project for learning purpose to get conceptual knowledge and experience abou
 
 - Functionally, it is a multiuser, transaction-oriented database server that executes SQL statements and interacts with clients via JDBC.
 - Structurally, it contains the same basic components as a commercial database management system, with similar APIs.
-- Extensive API documentation provided as a JavaDoc with some examples.
+- Extensive API documentation provided as a JavaDoc with some examples. Public API docs will be available after the first release.
 - Some diagrams added in Resource folder to visualize workflow for some db components.
-- Current Data types available: Integer, String.
+- Current Data types available: Integer, String, BLOB (raw data, i.e: bytes).
 
 ### Implementation Roadmap
 ****The project is still work in progress***
