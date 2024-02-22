@@ -1,6 +1,7 @@
 package ahmeddb.sql.logmanagement;
 
 import ahmeddb.sql.configuration.DataSourceConfigProvider;
+import ahmeddb.sql.filemanagement.BlockId;
 import ahmeddb.sql.filemanagement.FileManager;
 import ahmeddb.sql.filemanagement.Page;
 
@@ -43,17 +44,17 @@ public class LogManager {
     /**
      * A logical block size inside the file (any db file has many blocks that all have the same sizes).
      */
-    private static final int blockSize = DataSourceConfigProvider.getDataSourceConfig().getBlockSize();
+    private static final int BLOCK_SIZE = DataSourceConfigProvider.getDataSourceConfig().getBlockSize();
 
     /**
      * The name of the log file that will be responsible for storing db logging data.
      */
-    private static final String logFileName = DataSourceConfigProvider.getDataSourceConfig().getLogFileName();
+    private static final String LOG_FILE_NAME = DataSourceConfigProvider.getDataSourceConfig().getLogFileName();
 
     /**
      * The name of the database log directory
      */
-    private static final String logDirectoryName = DataSourceConfigProvider.getDataSourceConfig().getLogDirectoryName();
+    private static final String LOG_DIRECTORY_NAME = DataSourceConfigProvider.getDataSourceConfig().getLogDirectoryName();
 
     /**
      * Each block in the log file may contain more than 1 log record as the Log records can have varying sizes.
@@ -61,30 +62,39 @@ public class LogManager {
      */
     private final Page logPage;
 
-    private LogManager(){
+    /**
+     * Tracking the number of log blocks in log file
+     */
+    private int currentBlockNumber = 0;
+
+    /**
+     * Tracking the number of log records in log file
+     */
+    private int currentLogRecordNumber = 0;
+
+    private LogManager() {
         createLogDirectory();
-        logPage = new Page(new byte[blockSize]);
-        logPage.setInt(0,blockSize);
+        logPage = new Page(new byte[BLOCK_SIZE]);
+        logPage.setInt(0, BLOCK_SIZE);
     }
 
     /**
      * Create a database log directory if it's not exist.
      */
-    private void createLogDirectory(){
-        Path directoryPath = Path.of(logDirectoryName);
+    private void createLogDirectory() {
+        Path directoryPath = Path.of(LOG_DIRECTORY_NAME);
         try {
             if (Files.notExists(directoryPath)) Files.createDirectories(directoryPath);
-        }
-        catch (IOException ioException){
-            throw new RuntimeException("Cannot create database log directory for the name: '" + logDirectoryName + "'", ioException.getCause());
+        } catch (IOException ioException) {
+            throw new RuntimeException("Cannot create database log directory for the name: '" + LOG_DIRECTORY_NAME + "'", ioException.getCause());
         }
     }
 
     //make a thread-safe singleton object, so the instance is the same across application lifecycle.
     public static LogManager getINSTANCE() {
-        if (INSTANCE == null){
-            synchronized (LogManager.class){
-                if (INSTANCE == null){
+        if (INSTANCE == null) {
+            synchronized (LogManager.class) {
+                if (INSTANCE == null) {
                     INSTANCE = new LogManager();
                 }
             }
@@ -93,6 +103,7 @@ public class LogManager {
     }
 
     /**
+     * Append a log record to a log buffer (log page), if it's filled, it will be written to the disk into log file.
      * The method append adds a record to the log and returns an integer. As far as the
      * log manager is concerned, a log record is an arbitrarily sized byte array;
      * it saves the array in the log file but has no idea what its contents denote.
@@ -104,9 +115,39 @@ public class LogManager {
      * flush is the LSN of a log record; the method ensures that this log record (and all previous log records) is written to disk.
      *
      * @param record the record that will be appended to the end of the log file.
-     * @return log sequence number, that identifies that a new record has been added, and the returned number belongs to it.
+     * @return log sequence number, that identifies that a new record has been added, and the returned number belongs to it (refer to last record inserted).
+     * @implNote Refer to the docs in Resources folder, there is a log-workflow file that visualize the mechanism of storing log records into log file.
      */
-    public int append(LogRecord record) throws Exception {
-        throw new Exception("Not Implemented yet");
+    public int append(LogRecord record) {
+
+        int currentPosition = logPage.getInt(0);
+
+        //we need to skip the last position as it's already occupied by last inserted record
+        if (currentPosition != BLOCK_SIZE) currentPosition--;
+
+        // The Integer.BYTES is for the number that represents the record length.
+        // We need to consider its bytes to be added to the record length
+        // So, when inserting the record, the first position will represent the record length, and after it coming record bytes.
+        int insertedRecordPosition = currentPosition - (record.content().length + Integer.BYTES);
+
+        //the 0 is reserved for the storing the current position, we cannot insert the record on this 0 position
+        //so if > 0, means that there is available space.
+        if (insertedRecordPosition > 0) {
+            logPage.setBytes(insertedRecordPosition, record.content());
+            logPage.setInt(0, insertedRecordPosition);
+        } else {
+            writePageContents(logPage);
+            logPage.clear();
+            logPage.setInt(0, BLOCK_SIZE);
+        }
+        currentLogRecordNumber++;
+
+        return currentLogRecordNumber;
+    }
+
+    private void writePageContents(Page page) {
+        BlockId blockId = new BlockId(LOG_FILE_NAME, currentBlockNumber);
+        fileManager.write(blockId, page);
+        currentBlockNumber++;
     }
 }
