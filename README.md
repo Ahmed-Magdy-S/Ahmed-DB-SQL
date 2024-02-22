@@ -3,7 +3,6 @@ Fully functional relational database management system which is designed and imp
 
 ## Introduction
 The project for learning purpose to get conceptual knowledge and experience about how a database management system works under the hood and how every component interacts with each other.
-Its implementation is similar to SimpleDb which created by Edward Sciore in his [book](https://link.springer.com/book/10.1007/978-3-030-33836-7) but with new & modified APIs to be more understandable with extended features and appropriate documentation comments.
 
 ## Features
 
@@ -33,6 +32,13 @@ Its implementation is similar to SimpleDb which created by Edward Sciore in his 
 - [ ] Effective Buffer Utilization
 - [ ] Query Optimization
 
+## Known problems
+- There are holes in db files (e.g: table files, log files, etc...). The holes are exist due to some records don't fit into the remaining of the file block space, so a new block is created every time, leaving the previous block in non-full state.
+
+
+## Need to be proved
+- Log manager uses indirect buffer for its memory page, I don't know if this is a good option or not when comparing it to the direct buffer
+
 ## Setup
 It will be available after finishing of the project.
 
@@ -44,3 +50,6 @@ To Run the tests, make sure the maven is installed and run:
 ```shell
 mvn test
 ```
+
+## References
+- Sciore, E. (2020). Database design and implementation. Data-Centric Systems and Applications. https://doi.org/10.1007/978-3-030-33836-7 
