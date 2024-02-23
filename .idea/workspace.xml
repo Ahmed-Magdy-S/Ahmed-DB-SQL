@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb14125-b7a6-4510-8819-1d6e5a234193" name="Changes" comment="add log workflow diagrams">
+    <list default="true" id="ecb14125-b7a6-4510-8819-1d6e5a234193" name="Changes" comment="update readme">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/filemanagement/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/logmanagement/LogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ahmeddb/sql/logmanagement/LogManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +19,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Class" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -38,35 +40,36 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.AhmedDBApplication.executor": "Run",
-    "Application.AhmedDbSqlApplication.executor": "Run",
-    "JUnit.AhmedDBApplicationTest.executor": "Run",
-    "JUnit.AhmedDbSqlApplicationTest.executor": "Run",
-    "JUnit.PageTest.executor": "Run",
-    "JUnit.PageTest.getByteBuffer.executor": "Run",
-    "JUnit.PageTest.getInt.executor": "Run",
-    "JUnit.PageTest.setString.executor": "Run",
-    "Maven.ahmeddb-sql [test].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Ahmed/Desktop/Programming/SimpleDB_3.4",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AhmedDBApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AhmedDbSqlApplication.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AhmedDBApplicationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AhmedDbSqlApplicationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PageTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PageTest.getByteBuffer.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PageTest.getInt.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PageTest.setString.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ahmeddb-sql [test].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ahmed/Desktop/Programming/SimpleDB_3.4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -189,7 +192,11 @@
       <workItem from="1707353089389" duration="607000" />
       <workItem from="1707389880494" duration="3896000" />
       <workItem from="1707453973355" duration="6058000" />
-      <workItem from="1707564401812" duration="15839000" />
+      <workItem from="1707564401812" duration="15986000" />
+      <workItem from="1708578648909" duration="5934000" />
+      <workItem from="1708588356819" duration="8543000" />
+      <workItem from="1708644355999" duration="718000" />
+      <workItem from="1708693990592" duration="9732000" />
     </task>
     <task id="LOCAL؜-٠٠٠٠١" summary="init project">
       <option name="closed" value="true" />
@@ -303,7 +310,63 @@
       <option name="project" value="LOCAL؜" />
       <updated>1707605774915</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL؜-٠٠٠١٥" summary="update README">
+      <option name="closed" value="true" />
+      <created>1707607073889</created>
+      <option name="number" value="٠٠٠١٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1707607073890</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٦" summary="update README">
+      <option name="closed" value="true" />
+      <created>1708584523703</created>
+      <option name="number" value="٠٠٠١٦" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٦" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1708584523703</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٧" summary="add buffer bytes setter/getter methods">
+      <option name="closed" value="true" />
+      <created>1708586456376</created>
+      <option name="number" value="٠٠٠١٧" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٧" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1708586456376</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٨" summary="reformat &amp; refactor setBytes method">
+      <option name="closed" value="true" />
+      <created>1708604155218</created>
+      <option name="number" value="٠٠٠١٨" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٨" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1708604155219</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٩" summary="update readme">
+      <option name="closed" value="true" />
+      <created>1708604167102</created>
+      <option name="number" value="٠٠٠١٩" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٩" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1708604167102</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٠" summary="add append method for log records">
+      <option name="closed" value="true" />
+      <created>1708604198521</created>
+      <option name="number" value="٠٠٠٢٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1708604198521</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢١" summary="update readme">
+      <option name="closed" value="true" />
+      <created>1708645068864</created>
+      <option name="number" value="٠٠٠٢١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1708645068864</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,7 +377,6 @@
     <MESSAGE value="add file management module with configurations" />
     <MESSAGE value="update README.md" />
     <MESSAGE value="handling io exceptions." />
-    <MESSAGE value="update readme" />
     <MESSAGE value="add more docs" />
     <MESSAGE value="add tests for Page class" />
     <MESSAGE value="add some enhancements" />
@@ -323,6 +385,11 @@
     <MESSAGE value="code improvements" />
     <MESSAGE value="add initial logmanagement features" />
     <MESSAGE value="add log workflow diagrams" />
-    <option name="LAST_COMMIT_MESSAGE" value="add log workflow diagrams" />
+    <MESSAGE value="update README" />
+    <MESSAGE value="add buffer bytes setter/getter methods" />
+    <MESSAGE value="reformat &amp; refactor setBytes method" />
+    <MESSAGE value="add append method for log records" />
+    <MESSAGE value="update readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme" />
   </component>
 </project>

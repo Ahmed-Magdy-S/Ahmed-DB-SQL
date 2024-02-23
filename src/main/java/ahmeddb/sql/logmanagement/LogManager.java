@@ -60,22 +60,35 @@ public class LogManager {
      * Each block in the log file may contain more than 1 log record as the Log records can have varying sizes.
      * The page contain the contents of the last log block in the file.
      */
-    private final Page logPage;
+    private final Page logPage = new Page(new byte[BLOCK_SIZE]);
 
     /**
      * Tracking the number of log blocks in log file
      */
-    private int currentBlockNumber = 0;
+    private long currentBlockNumber = 0;
+
 
     /**
-     * Tracking the number of log records in log file
+     * When logManager object instantiated, we need to set the logPage. If application restart,
+     * we need to track the previous status to continue working.
      */
-    private int currentLogRecordNumber = 0;
-
     private LogManager() {
         createLogDirectory();
-        logPage = new Page(new byte[BLOCK_SIZE]);
-        logPage.setInt(0, BLOCK_SIZE);
+        restoreState();
+    }
+
+    /**
+     * Restore the last state of application when it restarts,
+     * if it starts for the first time, we get the initial state.
+     */
+    private void restoreState(){
+        long currentLogFileBlocks = fileManager.getBlocks(LOG_FILE_NAME);
+        if (currentLogFileBlocks == 0) logPage.setInt(0, BLOCK_SIZE);
+        else {
+            BlockId blockId = new BlockId(LOG_FILE_NAME, currentLogFileBlocks);
+            fileManager.read(blockId,logPage);
+            currentBlockNumber = currentLogFileBlocks;
+        }
     }
 
     /**
@@ -118,11 +131,12 @@ public class LogManager {
      * @return log sequence number, that identifies that a new record has been added, and the returned number belongs to it (refer to last record inserted).
      * @implNote Refer to the docs in Resources folder, there is a log-workflow file that visualize the mechanism of storing log records into log file.
      */
-    public int append(LogRecord record) {
+    public void append(LogRecord record) {
 
         int currentPosition = logPage.getInt(0);
 
         //we need to skip the last position as it's already occupied by last inserted record
+        //TODO depend on offset not length to avoid this calculation
         if (currentPosition != BLOCK_SIZE) currentPosition--;
 
         // The Integer.BYTES is for the number that represents the record length.
@@ -140,9 +154,7 @@ public class LogManager {
             logPage.clear();
             logPage.setInt(0, BLOCK_SIZE);
         }
-        currentLogRecordNumber++;
 
-        return currentLogRecordNumber;
     }
 
     private void writePageContents(Page page) {

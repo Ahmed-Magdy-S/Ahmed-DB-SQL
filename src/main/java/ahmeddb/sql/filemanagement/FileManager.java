@@ -33,12 +33,12 @@ public class FileManager {
     /**
      * A logical block size inside the file (any db file has many blocks that all have the same sizes).
      */
-    private static final int blockSize = DataSourceConfigProvider.getDataSourceConfig().getBlockSize();
+    private static final int BLOCK_SIZE = DataSourceConfigProvider.getDataSourceConfig().getBlockSize();
 
     /**
      * The name of database is also the name of the directory which store all database related data files.
      */
-    private static final String databaseName = DataSourceConfigProvider.getDataSourceConfig().getDatabaseName();
+    private static final String DATABASE_NAME = DataSourceConfigProvider.getDataSourceConfig().getDatabaseName();
 
     /**
      * Each RandomAccessFile object in the map openFiles corresponds to an open file.
@@ -66,7 +66,7 @@ public class FileManager {
      * Create a database directory if it's not exist.
      */
     private void createDatabaseDirectory() {
-        Path directoryPath = Path.of(databaseName);
+        Path directoryPath = Path.of(DATABASE_NAME);
         try {
             if (Files.notExists(directoryPath)) Files.createDirectories(directoryPath);
         }
@@ -112,7 +112,7 @@ public class FileManager {
         RandomAccessFile randomAccessFile = openFiles.get(filename);
         if (randomAccessFile == null){
             //The created file object is just a reference, not a real (physical) file.
-            File dbFile = new File(databaseName,filename);
+            File dbFile = new File(DATABASE_NAME,filename);
             try {
                 randomAccessFile = new RandomAccessFile(dbFile,"rws");
             }
@@ -137,7 +137,7 @@ public class FileManager {
 
         try{
             //move the pointer (cursor) to the given starting block position
-            dbFile.seek(blockId.number() * blockSize);
+            dbFile.seek(blockId.number() * BLOCK_SIZE);
 
             //get the channel of a db file,
             //so that we can deal with byteBuffer to read bytes from the db file by
@@ -164,7 +164,7 @@ public class FileManager {
 
         try{
             //move the pointer (cursor) to the given starting block position
-            dbFile.seek(blockId.number() * blockSize);
+            dbFile.seek(blockId.number() * BLOCK_SIZE);
 
             //get the channel of a db file
             //so that we can transfer bytes from byteBuffer through this channel to be written in the db file.
@@ -175,6 +175,21 @@ public class FileManager {
         }
         catch (IOException ioException){
             throw new RuntimeException("Cannot write to db file: " + blockId.fileName(), ioException.getCause());
+        }
+    }
+
+    /**
+     * Get Number of existing blocks in a db file.
+     * @param filename db file name to calculate the number of blocks in it.
+     * @return number of file blocks
+     */
+    public long getBlocks(String filename){
+        RandomAccessFile dbFile = getRandomAccessFile(filename);
+        try{
+            return Math.ceilDiv(dbFile.length(),BLOCK_SIZE);
+        }
+        catch (IOException ioException){
+            throw new RuntimeException("cannot get file length");
         }
     }
 

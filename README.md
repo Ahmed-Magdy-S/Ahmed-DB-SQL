@@ -15,11 +15,14 @@ The project for learning purpose to get conceptual knowledge and experience abou
 ### Implementation Roadmap
 ****The project is still work in progress***
 - [x] Disk and File Management
-  - Added Page class.
-  - Added BlockId class.
-  - Added FileManager Class.
-  - Added initial configuration classes.
-- [ ] Memory Management
+  - Added Page class for handling reading/writing between memory and disk.
+  - Added BlockId class for identifying the file block we need to do read/write with on it.
+  - Added FileManager Class for dealing with any operation related to file system, eg: read/write.
+  - Added initial configuration classes for configuring database application, ex: changing block size, specifying database name, etc...
+- [x] Memory Management
+  - Added LogManager class for dealing with any log records and tracking read/write operations
+  - Added LogRecord to identify the data of log record
+  - Added LogRecordList as a data structure to iterate over log records, starting from the most recent one.
 - [ ] Transaction Management
 - [ ] Record Management
 - [ ] Metadata Management
