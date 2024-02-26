@@ -2,6 +2,7 @@ package ahmeddb.sql.filemanagement;
 
 import ahmeddb.sql.configuration.DataSourceConfigProvider;
 
+import java.nio.BufferOverflowException;
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
@@ -147,6 +148,455 @@ public class Page {
     }
 
     /**
+     * Absolute <i>put</i> method for writing a double
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes eight bytes containing the given double value, in the
+     * current byte order, into this page at the given index.  </p>
+     *
+     * @param  index
+     *         The index at which the bytes will be written
+     *
+     * @param  value
+     *         The double value to be written
+     *
+     * @return  This page
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the page's limit,
+     *          minus seven
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this page is read-only
+     */
+    public Page setDouble(int index, double value){
+        byteBuffer.putDouble(index,value);
+        return this;
+    }
+
+    /**
+     * Relative <i>put</i> method for writing a double
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes eight bytes containing the given double value, in the
+     * current byte order, into this page at the current position, and then
+     * increments the position by eight.  </p>
+     *
+     * @param  value
+     *         The double value to be written
+     *
+     * @return  This page
+     *
+     * @throws BufferOverflowException
+     *          If there are fewer than eight bytes
+     *          remaining in this page
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this page is read-only
+     */
+    public Page setDouble(double value){
+        byteBuffer.putDouble(value);
+        return this;
+    }
+
+    /**
+     * Relative <i>get</i> method for reading a double value.
+     *
+     * <p> Reads the next eight bytes at this page's current position,
+     * composing them into a double value according to the current byte order,
+     * and then increments the position by eight.  </p>
+     *
+     * @return  The double value at the buffer's current position
+     *
+     * @throws  BufferUnderflowException
+     *          If there are fewer than eight bytes
+     *          remaining in this page
+     */
+    public double getDouble(){
+       return byteBuffer.getDouble();
+    }
+
+    /**
+     * Absolute <i>get</i> method for reading a double value.
+     *
+     * <p> Reads eight bytes at the given index, composing them into a
+     * double value according to the current byte order.  </p>
+     *
+     * @param  index
+     *         The index from which the bytes will be read
+     *
+     * @return  The double value at the given index
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the page's limit,
+     *          minus seven
+     */
+    public double getDouble(int index){
+        return byteBuffer.getDouble(index);
+    }
+
+    /**
+     * Relative <i>put</i> method for writing a float
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes four bytes containing the given float value, in the
+     * current byte order, into this buffer at the current position, and then
+     * increments the position by four.  </p>
+     *
+     * @param  value
+     *         The float value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  BufferOverflowException
+     *          If there are fewer than four bytes
+     *          remaining in this buffer
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setFloat(float value){
+        byteBuffer.putFloat(value);
+        return this;
+    }
+
+    /**
+     * Absolute <i>put</i> method for writing a float
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes four bytes containing the given float value, in the
+     * current byte order, into this buffer at the given index.  </p>
+     *
+     * @param  index
+     *         The index at which the bytes will be written
+     *
+     * @param  value
+     *         The float value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit,
+     *          minus three
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setFloat(int index, float value){
+        byteBuffer.putFloat(index, value);
+        return this;
+    }
+
+    /**
+     * Relative <i>get</i> method for reading a float value.
+     *
+     * <p> Reads the next four bytes at this buffer's current position,
+     * composing them into a float value according to the current byte order,
+     * and then increments the position by four.  </p>
+     *
+     * @return  The float value at the buffer's current position
+     *
+     * @throws  BufferUnderflowException
+     *          If there are fewer than four bytes
+     *          remaining in this buffer
+     */
+    public float getFloat(){
+        return byteBuffer.getFloat();
+    }
+
+    /**
+     * Absolute <i>get</i> method for reading a float value.
+     *
+     * <p> Reads four bytes at the given index, composing them into a
+     * float value according to the current byte order.  </p>
+     *
+     * @param  index
+     *         The index from which the bytes will be read
+     *
+     * @return  The float value at the given index
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit,
+     *          minus three
+     */
+    public float getFloat(int index){
+        return byteBuffer.getFloat(index);
+    }
+
+    /**
+     * Relative <i>put</i> method for writing a long
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes eight bytes containing the given long value, in the
+     * current byte order, into this buffer at the current position, and then
+     * increments the position by eight.  </p>
+     *
+     * @param  value
+     *         The long value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  BufferOverflowException
+     *          If there are fewer than eight bytes
+     *          remaining in this buffer
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setLong(long value){
+        byteBuffer.putLong(value);
+        return this;
+    }
+
+    /**
+     * Absolute <i>put</i> method for writing a long
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes eight bytes containing the given long value, in the
+     * current byte order, into this buffer at the given index.  </p>
+     *
+     * @param  index
+     *         The index at which the bytes will be written
+     *
+     * @param  value
+     *         The long value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit,
+     *          minus seven
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setLong(int index, long value){
+        byteBuffer.putLong(index, value);
+        return this;
+    }
+
+    /**
+     * Relative <i>get</i> method for reading a long value.
+     *
+     * <p> Reads the next eight bytes at this buffer's current position,
+     * composing them into a long value according to the current byte order,
+     * and then increments the position by eight.  </p>
+     *
+     * @return  The long value at the buffer's current position
+     *
+     * @throws  BufferUnderflowException
+     *          If there are fewer than eight bytes
+     *          remaining in this buffer
+     */
+    public long getLong(){
+        return byteBuffer.getLong();
+    }
+
+    /**
+     * Absolute <i>get</i> method for reading a long value.
+     *
+     * <p> Reads eight bytes at the given index, composing them into a
+     * long value according to the current byte order.  </p>
+     *
+     * @param  index
+     *         The index from which the bytes will be read
+     *
+     * @return  The long value at the given index
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit,
+     *          minus seven
+     */
+    public long getLong(int index){
+        return byteBuffer.getLong(index);
+    }
+
+    /**
+     * Relative <i>put</i> method for writing a short
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes two bytes containing the given short value, in the
+     * current byte order, into this buffer at the current position, and then
+     * increments the position by two.  </p>
+     *
+     * @param  value
+     *         The short value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  BufferOverflowException
+     *          If there are fewer than two bytes
+     *          remaining in this buffer
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setShort(short value){
+        byteBuffer.putShort(value);
+        return this;
+    }
+
+    /**
+     * Relative <i>put</i> method for writing a short
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes two bytes containing the given short value, in the
+     * current byte order, into this buffer at the current position, and then
+     * increments the position by two.  </p>
+     *
+     * @param  value
+     *         The short value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  BufferOverflowException
+     *          If there are fewer than two bytes
+     *          remaining in this buffer
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setShort(int index, short value){
+        byteBuffer.putShort(value);
+        return this;
+    }
+
+
+    /**
+     * Relative <i>get</i> method for reading a short value.
+     *
+     * <p> Reads the next two bytes at this buffer's current position,
+     * composing them into a short value according to the current byte order,
+     * and then increments the position by two.  </p>
+     *
+     * @return  The short value at the buffer's current position
+     *
+     * @throws  BufferUnderflowException
+     *          If there are fewer than two bytes
+     *          remaining in this buffer
+     */
+    public short getShort(){
+        return byteBuffer.getShort();
+    }
+
+    /**
+     * Absolute <i>get</i> method for reading a short value.
+     *
+     * <p> Reads two bytes at the given index, composing them into a
+     * short value according to the current byte order.  </p>
+     *
+     * @param  index
+     *         The index from which the bytes will be read
+     *
+     * @return  The short value at the given index
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit,
+     *          minus one
+     */
+    public short getShort(int index){
+        return byteBuffer.getShort(index);
+    }
+
+    /**
+     * Relative <i>put</i> method for writing a char
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes two bytes containing the given char value, in the
+     * current byte order, into this buffer at the current position, and then
+     * increments the position by two.  </p>
+     *
+     * @param  value
+     *         The char value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  BufferOverflowException
+     *          If there are fewer than two bytes
+     *          remaining in this buffer
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setChar(char value){
+        byteBuffer.putChar(value);
+        return this;
+    }
+
+    /**
+     * Absolute <i>put</i> method for writing a char
+     * value&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes two bytes containing the given char value, in the
+     * current byte order, into this buffer at the given index.  </p>
+     *
+     * @param  index
+     *         The index at which the bytes will be written
+     *
+     * @param  value
+     *         The char value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit,
+     *          minus one
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setChar(int index, char value){
+        byteBuffer.putChar(index, value);
+        return this;
+    }
+
+    /**
+     * Relative <i>get</i> method for reading a char value.
+     *
+     * <p> Reads the next two bytes at this buffer's current position,
+     * composing them into a char value according to the current byte order,
+     * and then increments the position by two.  </p>
+     *
+     * @return  The char value at the buffer's current position
+     *
+     * @throws  BufferUnderflowException
+     *          If there are fewer than two bytes
+     *          remaining in this buffer
+     */
+    public char getChar(){
+        return byteBuffer.getChar();
+    }
+
+    /**
+     * Absolute <i>get</i> method for reading a char value.
+     *
+     * <p> Reads two bytes at the given index, composing them into a
+     * char value according to the current byte order.  </p>
+     *
+     * @param  index
+     *         The index from which the bytes will be read
+     *
+     * @return  The char value at the given index
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit,
+     *          minus one
+     */
+    public char getChar(int index){
+        return byteBuffer.getChar(index);
+    }
+
+
+    /**
      * The ByteBuffer class does not have methods to read and write strings, so
      * Page chooses to write string values as blobs.
      * The Java String class has a method getBytes, which converts a string into a byte array.
@@ -220,7 +670,7 @@ public class Page {
      *
      * @return page's byteBuffer object.
      */
-    public ByteBuffer contents() {
+    ByteBuffer contents() {
         byteBuffer.position(0);
         return byteBuffer;
     }

@@ -10,7 +10,7 @@ The project for learning purpose to get conceptual knowledge and experience abou
 - Structurally, it contains the same basic components as a commercial database management system, with similar APIs.
 - Extensive API documentation provided as a JavaDoc with some examples. Public API docs will be available after the first release.
 - Some diagrams added in Resource folder to visualize workflow for some db components.
-- Current Data types available: Integer, String, BLOB (raw data, i.e: bytes).
+- Current Data types available: Integer, Short, Long, Float, Double, Char, String, BLOB (raw data, i.e: bytes).
 
 ### Implementation Roadmap
 ****The project is still work in progress***
@@ -20,9 +20,9 @@ The project for learning purpose to get conceptual knowledge and experience abou
   - Added FileManager Class for dealing with any operation related to file system, eg: read/write.
   - Added initial configuration classes for configuring database application, ex: changing block size, specifying database name, etc...
 - [x] Memory Management
-  - Added LogManager class for dealing with any log records and tracking read/write operations
-  - Added LogRecord to identify the data of log record
-  - Added LogRecordList as a data structure to iterate over log records, starting from the most recent one.
+  - Added LogManager class for dealing with any log records and tracking read/write operations.
+  - Added LogRecord to identify the data of log record.
+  - Added LogRecordList as a data structure to iterate over log records, starting from the most recent one to least recent.
 - [ ] Transaction Management
 - [ ] Record Management
 - [ ] Metadata Management
@@ -42,9 +42,14 @@ The project for learning purpose to get conceptual knowledge and experience abou
 ## Need to be proved
 - Log manager uses indirect buffer for its memory page, I don't know if this is a good option or not when comparing it to the direct buffer
 
-## Future Ideas to be considered 
-- Caching mechanism like redis
-- search engine with features like: "Auto-complete, spell-checking, full text-search, geoloaction, etc..."
+## Future Ideas to be considered and/or improvements
+- **Ideas**
+  - Caching mechanism like redis
+  - Search engine with features like: "Auto-complete, spell-checking, full text-search, geoloaction, etc..."
+  - Ability to have column-based tables when needed.
+- **Improvements**
+  - Specific exceptions for each component.
+  - Logging mechanisms to be useful and more statistical.
 
 ## Setup
 It will be available after finishing of the project.
