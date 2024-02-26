@@ -2,6 +2,7 @@ package ahmeddb.sql.filemanagement;
 
 import ahmeddb.sql.configuration.DataSourceConfigProvider;
 
+import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ReadOnlyBufferException;
 import java.nio.charset.Charset;
@@ -111,6 +112,23 @@ public class Page {
     }
 
     /**
+     * Relative <i>get</i> method for reading an int value.
+     *
+     * <p> Reads the next four bytes at this buffer's current position,
+     * composing them into an int value according to the current byte order,
+     * and then increments the position by four.  </p>
+     *
+     * @return  The int value at the buffer's current position
+     *
+     * @throws BufferUnderflowException
+     *          If there are fewer than four bytes
+     *          remaining in this buffer
+     */
+    public int getInt(){
+        return byteBuffer.getInt();
+    }
+
+    /**
      * Absolute <i>put</i> method for writing an int
      * value&nbsp;&nbsp;<i>(optional operation)</i>.
      *
@@ -170,24 +188,28 @@ public class Page {
     /**
      * add random bytes to the buffer, the first bytes before inserting the actual bytes will be an integer that represents the
      * bytes length in byteBuffer object.
+     * The position of this buffer is then incremented by length + index (integer bytes).
      *
      * @param index the index at which we start inserting bytes.
      * @param bytes the actual data that will be stored.
      */
-    public ByteBuffer setBytes(int index, byte[] bytes) {
-        return byteBuffer.position(index).putInt(bytes.length).put(bytes, 0, bytes.length);
+    public Page setBytes(int index, byte[] bytes) {
+        byteBuffer.position(index).putInt(bytes.length).put(bytes, 0, bytes.length);
+        return this;
     }
 
     /**
-     * Get bytes from a specific location by index
+     * Get bytes from a specific location by index.
+     * The position of this buffer is then incremented by index + length.
      *
      * @param index the index at which the bytes length is stored as an integer.
      * @return the bytes that has an equal length to the integer that obtained from the index position.
      */
     public byte[] getBytes(int index) {
-        int bytesLength = byteBuffer.getInt(index);
+        byteBuffer.position(index);
+        int bytesLength = byteBuffer.getInt();
         byte[] bytes = new byte[bytesLength];
-        byteBuffer.get(bytesLength, bytes);
+        byteBuffer.get(bytes , 0 ,bytesLength);
         return bytes;
     }
 
@@ -207,11 +229,31 @@ public class Page {
         return value.getBytes(CHARSET).length;
     }
 
+
     /**
-     * Clearing page's contents
+     * Get current page position
+     * @return position of this page (buffer position)
      */
-    public ByteBuffer clear() {
-        return byteBuffer.clear();
+    public int position(){
+        return byteBuffer.position();
     }
 
+    /**
+     * Sets this page's position. If the mark is defined and larger than the new position then it is discarded.
+     * @param index The new position value; must be non-negative and no larger than the current limit
+     * @return This page
+     */
+    public Page position(int index){
+        byteBuffer.position(index);
+        return this;
+    }
+
+
+    /**
+     * Tells whether there are any elements between the current position and the limit.
+     * @return true if, and only if, there is at least one element remaining in this buffer
+     */
+    public boolean hasRemaining() {
+        return byteBuffer.hasRemaining();
+    }
 }
