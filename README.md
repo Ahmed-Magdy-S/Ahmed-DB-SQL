@@ -10,7 +10,7 @@ The project for learning purpose to get conceptual knowledge and experience abou
 - Structurally, it contains the same basic components as a commercial database management system, with similar APIs.
 - Extensive API documentation provided as a JavaDoc with some examples. Public API docs will be available after the first release.
 - Some diagrams added in Resource folder to visualize workflow for some db components.
-- Current Data types available: Integer, Short, Long, Float, Double, Char, String, BLOB (raw data, i.e: bytes).
+- Current Data types available: Byte, Integer, Short, Long, Float, Double, Char, String, BLOB (raw data, i.e: bytes).
 
 ### Implementation Roadmap
 ****The project is still work in progress***

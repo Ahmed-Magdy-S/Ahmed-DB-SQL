@@ -595,6 +595,85 @@ public class Page {
         return byteBuffer.getChar(index);
     }
 
+    /**
+     * Relative <i>put</i> method&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes the given byte into this buffer at the current
+     * position, and then increments the position. </p>
+     *
+     * @param  b
+     *         The byte to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  BufferOverflowException
+     *          If this buffer's current position is not smaller than its limit
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setByte(byte value){
+        byteBuffer.put(value);
+        return this;
+    }
+
+
+    /**
+     * Absolute <i>put</i> method&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> Writes the given byte into this buffer at the given
+     * index. </p>
+     *
+     * @param  index
+     *         The index at which the byte will be written
+     *
+     * @param  b
+     *         The byte value to be written
+     *
+     * @return  This buffer
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is read-only
+     */
+    public Page setByte(int index, byte value){
+        byteBuffer.put(index, value);
+        return this;
+    }
+
+    /**
+     * Relative <i>get</i> method.  Reads the byte at this buffer's
+     * current position, and then increments the position.
+     *
+     * @return  The byte at the buffer's current position
+     *
+     * @throws  BufferUnderflowException
+     *          If the buffer's current position is not smaller than its limit
+     */
+    public byte getByte(){
+        return byteBuffer.get();
+    }
+
+    /**
+     * Absolute <i>get</i> method.  Reads the byte at the given
+     * index.
+     *
+     * @param  index
+     *         The index from which the byte will be read
+     *
+     * @return  The byte at the given index
+     *
+     * @throws  IndexOutOfBoundsException
+     *          If {@code index} is negative
+     *          or not smaller than the buffer's limit
+     */
+    public byte getByte(int index){
+        return byteBuffer.get(index);
+    }
+
 
     /**
      * The ByteBuffer class does not have methods to read and write strings, so
