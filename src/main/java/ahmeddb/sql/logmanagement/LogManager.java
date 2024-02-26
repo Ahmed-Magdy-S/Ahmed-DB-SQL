@@ -63,9 +63,14 @@ public class LogManager {
     private final Page logPage = new Page(new byte[BLOCK_SIZE]);
 
     /**
-     * Tracking the number of log blocks in log file
+     * Tracking the number of log blocks in log file, it's based on zero-index.
      */
     private long currentBlockNumber = 0;
+
+    /**
+     * Tracking the number of records that are not saved (written) yet to the log file.
+     */
+    private long unsavedLogRecords;
 
 
     /**
@@ -81,13 +86,13 @@ public class LogManager {
      * Restore the last state of application when it restarts,
      * if it starts for the first time, we get the initial state.
      */
-    private void restoreState(){
-        long currentLogFileBlocks = fileManager.getBlocks(LOG_FILE_NAME);
-        if (currentLogFileBlocks == 0) logPage.setInt(0, BLOCK_SIZE);
+    private void restoreState() {
+        long logFileBlocks = fileManager.getBlocks(LOG_FILE_NAME);
+        if (logFileBlocks == 0) logPage.setInt(0, BLOCK_SIZE);
         else {
-            BlockId blockId = new BlockId(LOG_FILE_NAME, currentLogFileBlocks);
-            fileManager.read(blockId,logPage);
-            currentBlockNumber = currentLogFileBlocks;
+            currentBlockNumber = logFileBlocks - 1;
+            BlockId blockId = new BlockId(LOG_FILE_NAME, currentBlockNumber);
+            fileManager.read(blockId, logPage);
         }
     }
 
@@ -132,12 +137,13 @@ public class LogManager {
      * @implNote Refer to the docs in Resources folder, there is a log-workflow file that visualize the mechanism of storing log records into log file.
      */
     public void append(LogRecord record) {
-
+        if ((record.content().length + Integer.BYTES) >= BLOCK_SIZE)
+            throw new RuntimeException("The record is too big to fit into a full block");
+        //if it's the first time to append, the position is the size of the buffer,
+        // means that the current index is: (last index + 1) => which mean it's the length of the block,
+        // as an analogue to arrays, if some array has the last index = 2,
+        // it means that it has 3 elements, which is actually the length of the array.
         int currentPosition = logPage.getInt(0);
-
-        //we need to skip the last position as it's already occupied by last inserted record
-        //TODO depend on offset not length to avoid this calculation
-        if (currentPosition != BLOCK_SIZE) currentPosition--;
 
         // The Integer.BYTES is for the number that represents the record length.
         // We need to consider its bytes to be added to the record length
@@ -147,19 +153,41 @@ public class LogManager {
         //the 0 is reserved for the storing the current position, we cannot insert the record on this 0 position
         //so if > 0, means that there is available space.
         if (insertedRecordPosition > 0) {
-            logPage.setBytes(insertedRecordPosition, record.content());
-            logPage.setInt(0, insertedRecordPosition);
+            insertRecordToLogPage(insertedRecordPosition, record);
         } else {
-            writePageContents(logPage);
-            logPage.clear();
-            logPage.setInt(0, BLOCK_SIZE);
+            //the record cannot fit into the remaining block space,
+            //so we need to make a new block and add the record to it
+            writePageContents();
+            moveToNextBlock();
+            append(record);
         }
-
     }
 
-    private void writePageContents(Page page) {
+    private void writePageContents() {
         BlockId blockId = new BlockId(LOG_FILE_NAME, currentBlockNumber);
-        fileManager.write(blockId, page);
+        fileManager.write(blockId, logPage);
+        unsavedLogRecords = 0;
+    }
+
+    private void insertRecordToLogPage(int index, LogRecord record) {
+        logPage.setBytes(index, record.content()).setInt(0, index);
+        unsavedLogRecords++;
+    }
+
+    private void moveToNextBlock() {
         currentBlockNumber++;
+        logPage.setInt(0, BLOCK_SIZE);
+    }
+
+    /**
+     * Get iterable that represent all records in the log file. It acts as both partial lazy and eager loading,
+     * as it loads one block into memory at a time with all records inside it when it needs a record that present in that block,
+     * then when iterating is finished in that block, it repeats the process that if it needs a new record, it will start to load
+     * all records that are included in the same block.
+     *
+     * @return iterable that contains list of records of the log file.
+     */
+    public Iterable<LogRecord> iterable() {
+        return new LogRecordList();
     }
 }
