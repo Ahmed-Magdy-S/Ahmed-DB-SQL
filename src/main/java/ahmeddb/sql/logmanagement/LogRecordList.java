@@ -65,8 +65,10 @@ public class LogRecordList implements Iterable<LogRecord>{
     private void moveToPreviousBlock() {
         currentBlockIndex--;
         if (currentBlockIndex >= 0){
-            logPage.position(0);
+            //read the new block
             fileManager.read(new BlockId(LOG_FILE_NAME, currentBlockIndex),logPage);
+            logPage.position(0);
+            //get the index of the first record in that new block
             recordIndex = logPage.getInt(0);
         }
 
