@@ -138,7 +138,7 @@ public class Page {
      *
      * @param index The index at which the bytes will be written
      * @param value The int value to be written
-     *              *
+     *
      * @throws IndexOutOfBoundsException If {@code index} is negative or not smaller than the buffer's limit, minus three
      * @throws ReadOnlyBufferException   If this buffer is read-only
      * @apiNote The byteBuffer position won't be changed, so take care of setting the appropriate index, otherwise unpredictable data will be obtained.
@@ -601,7 +601,7 @@ public class Page {
      * <p> Writes the given byte into this buffer at the current
      * position, and then increments the position. </p>
      *
-     * @param  b
+     * @param  value
      *         The byte to be written
      *
      * @return  This buffer
@@ -627,7 +627,7 @@ public class Page {
      * @param  index
      *         The index at which the byte will be written
      *
-     * @param  b
+     * @param  value
      *         The byte value to be written
      *
      * @return  This buffer
