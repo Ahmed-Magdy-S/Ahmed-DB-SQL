@@ -50,6 +50,7 @@ The project for learning purpose to get conceptual knowledge and experience abou
 - **Ideas**
   - Caching mechanism like redis
   - Search engine like elasticSearch with similar features: "Auto-complete, spell-checking, full text-search, geoloaction, etc..."
+  - Message broker like RabbitMQ
   - Ability to have column-based tables when needed.
 - **Improvements**
   - Specific exceptions for each component.
