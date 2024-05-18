@@ -49,7 +49,7 @@ The project for learning purpose to get conceptual knowledge and experience abou
 ## Future Ideas to be considered and/or improvements
 - **Ideas**
   - Caching mechanism like redis
-  - Search engine with features like: "Auto-complete, spell-checking, full text-search, geoloaction, etc..."
+  - Search engine like elasticSearch with similar features: "Auto-complete, spell-checking, full text-search, geoloaction, etc..."
   - Ability to have column-based tables when needed.
 - **Improvements**
   - Specific exceptions for each component.
