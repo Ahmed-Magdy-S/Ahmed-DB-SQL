@@ -20,9 +20,13 @@ The project for learning purpose to get conceptual knowledge and experience abou
   - Added FileManager Class for dealing with any operation related to file system, eg: read/write.
   - Added initial configuration classes for configuring database application, ex: changing block size, specifying database name, etc...
 - [x] Memory Management
-  - Added LogManager class for dealing with any log records and tracking read/write operations.
-  - Added LogRecord to identify the data of log record.
-  - Added LogRecordList as a data structure to iterate over log records, starting from the most recent one to least recent.
+  - Log Management
+    - Added LogManager class for dealing with any log records and tracking read/write operations.
+    - Added LogRecord to identify the data of log record.
+    - Added LogRecordList as a data structure to iterate over log records, starting from the most recent one to least recent.
+  - Buffer Management
+    - Added BufferManager
+    - Added Buffer
 - [ ] Transaction Management
 - [ ] Record Management
 - [ ] Metadata Management
